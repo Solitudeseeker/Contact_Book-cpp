@@ -12,6 +12,7 @@ class Contact{
 int main(){
     Contact c1;
     cout<<"Enter name: ";
+    cin.ignore();
     getline(cin, c1.name);
     cout<<"Enter phone: ";
     getline(cin, c1.phone);
