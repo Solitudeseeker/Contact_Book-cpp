@@ -16,16 +16,32 @@ class Contact{
         email = e;
     }
 };
-void addContact(vector<Contact>& contacts){
-    string name, phone, email;
-    cout<<"Enter Name: ";
-    getline(cin, name);
-    cout<<"Enter Phone: ";
-    getline(cin, phone);
-    cout<<"Enter E-main: ";
-    getline(cin, email);
-    Contact c1(name, phone, email);
-    contacts.push_back(c1);
+void addContacts(vector<Contact>& contacts){
+    char another;
+    do{
+        string name, phone, email;
+        cout<<"Enter Name: ";
+        getline(cin, name);
+        cout<<"Enter Phone: ";
+        getline(cin, phone);
+        cout<<"Enter E-main: ";
+        getline(cin, email);
+        Contact c1(name, phone, email);
+        contacts.push_back(c1);
+        cout<<endl;
+        cout<<"Do you want to add another contact? (Y/N): ";
+        cin>>another;
+        while(another != 'Y' && another != 'y' && another != 'N' && another != 'n'){
+            cout<<"Invalid input. Please enter Y or N."<<endl;
+            cin>>another;
+        }
+        cin.ignore();
+        if(another== 'N' || another == 'n'){
+            cout<<"Return To Menu..."<<endl;
+        }else{
+            cout<<"Adding another contact...\n"<<endl;
+        }
+    }while(another == 'Y' || another == 'y');
 }
 void displayContacts(const vector<Contact>& contacts){
     cout<<"\n----- Contact Details -----\n"<<endl;
@@ -59,24 +75,34 @@ void searchContact(const vector<Contact>& contacts){
     }
 }
 int main(){
-    char another;
     vector <Contact> contacts;
+    int choice;
     do{
-        addContact(contacts);
-        cout<<"Do you want to add another contact? (Y/N): ";
-        cin>>another;
-        while(another != 'Y' && another != 'y' && another != 'N' && another != 'n'){
-            cout<<"Invalid input. Please enter Y or N."<<endl;
-            cin>>another;
-        }
+        cout<<"====Contact Book====\n"<<endl;
+        cout<<"1. Add Contacts\n";
+        cout<<"2. Display Contacts\n";
+        cout<<"3. Search Contact\n";
+        cout<<"4. Exit"<<endl;
+        cout<<"\nEnter the number assign to the Menu List to continue: ";
+        cin>>choice;
         cin.ignore();
-        if(another== 'N' || another == 'n'){
+        switch(choice){
+            case 1:
+            addContacts(contacts);
+            break;
+            case 2:
+            displayContacts(contacts);
+            break;
+            case 3:
+            searchContact(contacts);
+            break;
+            case 4:
             cout<<"Thankyou for using Contact Book!"<<endl;
-        }else{
-            cout<<"Adding another contact..."<<endl;
+            break;
+            default:
+            cout<<"Invalid Chioce...."<<endl;
+            break;
         }
-    }while(another == 'Y' || another == 'y');
-    displayContacts(contacts);
-    searchContact(contacts);
+    }while(choice != 4);
     return 0;
 }
