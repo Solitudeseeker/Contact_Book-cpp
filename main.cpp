@@ -24,7 +24,7 @@ void addContacts(vector<Contact>& contacts){
         getline(cin, name);
         cout<<"Enter Phone: ";
         getline(cin, phone);
-        cout<<"Enter E-main: ";
+        cout<<"Enter E-mail: ";
         getline(cin, email);
         Contact c1(name, phone, email);
         contacts.push_back(c1);
@@ -95,16 +95,50 @@ void deleteContact(vector<Contact>& contacts){
         cout<<"=======================\n"<<endl;
     }
 }
+void editContact(vector<Contact>& contacts){
+    string editName;
+    string editedName;
+    string editedPhone;
+    string editedEmail;
+    bool found = false;
+    cout<<"\n=====Editing Contact=====\n"<<endl;
+    cout<<"Enter Name that you want to Edit: ";
+    getline(cin, editName);
+    for(int i=0; i<contacts.size(); i++){
+        if(contacts[i].name == editName){
+            cout<<"Enter Name for Modification: ";
+            getline(cin, editedName);
+            cout<<"Enter Phone for Modification: ";
+            getline(cin, editedPhone);
+            cout<<"Enter Email for Modification: ";
+            getline(cin, editedEmail);
+            contacts[i].name = editedName;
+            contacts[i].phone = editedPhone;
+            contacts[i].email = editedEmail;
+            found= true;
+            cout<<"After Editing :"<<endl;
+            cout<<"Name: "<<contacts[i].name<<endl;
+            cout<<"Phone: "<<contacts[i].phone<<endl;
+            cout<<"E-mail: "<<contacts[i].email<<endl;
+            cout<<"\n=========================\n"<<endl;
+        }
+    }
+    if(!found){
+        cout<<"Contact Not found!!!";
+        cout<<"\n=========================\n"<<endl;
+    }
+}
 int main(){
     vector <Contact> contacts;
     int choice;
     do{
-        cout<<"====Contact Book====\n"<<endl;
+        cout<<"\n====Contact Book====\n"<<endl;
         cout<<"1. Add Contacts\n";
         cout<<"2. Display Contacts\n";
         cout<<"3. Search Contact\n";
         cout<<"4. Delete Contact\n";
-        cout<<"5. Exit"<<endl;
+        cout<<"5. Edit Contact\n";
+        cout<<"6. Exit"<<endl;
         cout<<"\nEnter the number assign to the Menu List to continue: ";
         cin>>choice;
         cin.ignore();
@@ -122,12 +156,15 @@ int main(){
             deleteContact(contacts);
             break;
             case 5:
+            editContact(contacts);
+            break;
+            case 6:
             cout<<"Thankyou for using Contact Book!"<<endl;
             break;
             default:
             cout<<"Invalid Chioce...."<<endl;
             break;
         }
-    }while(choice != 5);
+    }while(choice != 6);
     return 0;
 }
