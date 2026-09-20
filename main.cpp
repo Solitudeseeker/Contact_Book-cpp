@@ -16,19 +16,32 @@ class Contact{
         email = e;
     }
 };
+void addContact(vector<Contact>& contacts){
+    string name, phone, email;
+    cout<<"Enter Name: ";
+    getline(cin, name);
+    cout<<"Enter Phone: ";
+    getline(cin, phone);
+    cout<<"Enter E-main: ";
+    getline(cin, email);
+    Contact c1(name, phone, email);
+    contacts.push_back(c1);
+}
+void displayContacts(const vector<Contact>& contacts){
+    cout<<"\n----- Contact Details -----\n"<<endl;
+    for(const auto& contact: contacts){
+        cout<<"\n------------------------"<<endl;
+        cout<<"Name: "<<contact.name<<endl;
+        cout<<"Phone: "<<contact.phone<<endl;
+        cout<<"E-mail: "<<contact.email<<endl;
+        cout<<"------------------------\n"<<endl;
+    }
+}
 int main(){
     char another;
     vector <Contact> contacts;
-    string name, phone, email;
     do{
-        cout<<"Enter name: ";
-        getline(cin, name);
-        cout<<"Enter phone: ";
-        getline(cin, phone);
-        cout<<"Enter email: ";
-        getline(cin, email);
-        Contact c1(name, phone, email);
-        contacts.push_back(c1);
+        addContact(contacts);
         cout<<"Do you want to add another contact? (Y/N): ";
         cin>>another;
         while(another != 'Y' && another != 'y' && another != 'N' && another != 'n'){
@@ -42,12 +55,6 @@ int main(){
             cout<<"Adding another contact..."<<endl;
         }
     }while(another == 'Y' || another == 'y');
-    cout<<"\n -----Contact Details-----\n";
-    for(const auto& contact : contacts){
-        cout<<"Name: "<<contact.name<<endl;
-        cout<<"Phone: "<<contact.phone<<endl;
-        cout<<"Email: "<<contact.email<<endl;
-        cout<<"--------------------------\n";
-    }
+    displayContacts(contacts);
     return 0;
 }
