@@ -56,6 +56,7 @@ void displayContacts(const vector<Contact>& contacts){
 void searchContact(const vector<Contact>& contacts){
     string searchName;
     bool found =  false;
+    cout<<"\n=========Search Contact=========\n";
     cout<<"Enter Name to Search: ";
     getline(cin, searchName);
     cout<<endl;
@@ -65,13 +66,33 @@ void searchContact(const vector<Contact>& contacts){
             cout<<contact.name<<endl;
             cout<<contact.phone<<endl;
             cout<<contact.email<<endl;
-            cout<<"---------------------------------\n"<<endl;
+            cout<<"----------------------------\n"<<endl;
             found= true;
         }
     }
     if(!found){
         cout<<"The contact does not exist in your Contact List."<<endl;
         cout<<endl;
+    }
+}
+void deleteContact(vector<Contact>& contacts){
+    string deleteName;
+    bool found = false;
+    cout<<"\n==== Delete Contact ====\n"<<endl;
+    cout<<"Enter Name to Delete: ";
+    getline(cin, deleteName);
+    for(int i=0; i<contacts.size(); i++){
+        if(contacts[i].name == deleteName){
+            contacts.erase(contacts.begin() + i);
+            cout<<"The contact "<<deleteName<<" has been deleted successfully."<<endl;
+            cout<<"=======================\n"<<endl;
+            found = true;
+            break;
+        }
+    }
+    if(!found){
+        cout<<"The Contact doesn't exists in your Contact List."<<endl;
+        cout<<"=======================\n"<<endl;
     }
 }
 int main(){
@@ -82,7 +103,8 @@ int main(){
         cout<<"1. Add Contacts\n";
         cout<<"2. Display Contacts\n";
         cout<<"3. Search Contact\n";
-        cout<<"4. Exit"<<endl;
+        cout<<"4. Delete Contact\n";
+        cout<<"5. Exit"<<endl;
         cout<<"\nEnter the number assign to the Menu List to continue: ";
         cin>>choice;
         cin.ignore();
@@ -97,12 +119,15 @@ int main(){
             searchContact(contacts);
             break;
             case 4:
+            deleteContact(contacts);
+            break;
+            case 5:
             cout<<"Thankyou for using Contact Book!"<<endl;
             break;
             default:
             cout<<"Invalid Chioce...."<<endl;
             break;
         }
-    }while(choice != 4);
+    }while(choice != 5);
     return 0;
 }
