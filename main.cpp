@@ -1,5 +1,7 @@
 #include<iostream>
 #include<string>
+#include<vector>
+#include<cctype>
 
 using namespace std;
 
@@ -8,19 +10,29 @@ class Contact{
     string name;
     string phone;
     string email;
+
+    Contact(string n, string p, string e){
+        name = n;
+        phone = p;
+        email = e;
+    }
 };
 int main(){
-    Contact c1;
+    vector <Contact> contacts;
+    string name, phone, email;
     cout<<"Enter name: ";
-    cin.ignore();
-    getline(cin, c1.name);
+    getline(cin, name);
     cout<<"Enter phone: ";
-    getline(cin, c1.phone);
+    getline(cin, phone);
     cout<<"Enter email: ";
-    getline(cin, c1.email);
+    getline(cin, email);
+    Contact c1(name, phone, email);
+    contacts.push_back(c1);
     cout<<"\n -----Contact Details-----\n";
-    cout<<"Name: "<<c1.name<<endl;
-    cout<<"Phone: "<<c1.phone<<endl;
-    cout<<"Email: "<<c1.email<<endl;
+    for(const auto& contact : contacts){
+        cout<<"Name: "<<contact.name<<endl;
+        cout<<"Phone: "<<contact.phone<<endl;
+        cout<<"Email: "<<contact.email<<endl;
+    }
     return 0;
 }
