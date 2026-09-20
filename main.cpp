@@ -37,6 +37,27 @@ void displayContacts(const vector<Contact>& contacts){
         cout<<"------------------------\n"<<endl;
     }
 }
+void searchContact(const vector<Contact>& contacts){
+    string searchName;
+    bool found =  false;
+    cout<<"Enter Name to Search: ";
+    getline(cin, searchName);
+    cout<<endl;
+    for(const auto& contact: contacts){
+        if(contact.name == searchName){
+            cout<<"\n----The Contact details are: ----"<<endl;
+            cout<<contact.name<<endl;
+            cout<<contact.phone<<endl;
+            cout<<contact.email<<endl;
+            cout<<"---------------------------------\n"<<endl;
+            found= true;
+        }
+    }
+    if(!found){
+        cout<<"The contact does not exist in your Contact List."<<endl;
+        cout<<endl;
+    }
+}
 int main(){
     char another;
     vector <Contact> contacts;
@@ -56,5 +77,6 @@ int main(){
         }
     }while(another == 'Y' || another == 'y');
     displayContacts(contacts);
+    searchContact(contacts);
     return 0;
 }
