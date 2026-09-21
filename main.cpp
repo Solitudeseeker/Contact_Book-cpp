@@ -1,7 +1,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
-
+#include<fstream>
 using namespace std;
 
 class Contact{
@@ -128,9 +128,33 @@ void editContact(vector<Contact>& contacts){
         cout<<"\n=========================\n"<<endl;
     }
 }
+void contactStorage(vector<Contact>& contacts){
+    ofstream file("contacts.txt");  
+    for(const auto& contact: contacts){
+        file<<contact.name<<"\n";
+        file<<contact.phone<<"\n";
+        file<<contact.email<<"\n";
+    }
+    file.close();
+}
+void loadContacts(vector<Contact>& contacts){
+    ifstream file("contacts.txt");
+    if(!file){
+        cout<<"Could not open contacts.txt!"<<endl;
+    }
+    string name;
+    string phone;
+    string email;
+    while(getline(file, name)&& getline(file,phone)&& getline(file, email)){
+        Contact c1(name, phone, email);
+        contacts.push_back(c1);
+    }
+    file.close();
+}
 int main(){
     vector <Contact> contacts;
     int choice;
+    loadContacts(contacts);
     do{
         cout<<"\n====Contact Book====\n"<<endl;
         cout<<"1. Add Contacts\n";
@@ -145,6 +169,7 @@ int main(){
         switch(choice){
             case 1:
             addContacts(contacts);
+            contactStorage(contacts);
             break;
             case 2:
             displayContacts(contacts);
@@ -154,9 +179,11 @@ int main(){
             break;
             case 4:
             deleteContact(contacts);
+            contactStorage(contacts);
             break;
             case 5:
             editContact(contacts);
+            contactStorage(contacts);
             break;
             case 6:
             cout<<"Thankyou for using Contact Book!"<<endl;
