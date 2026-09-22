@@ -19,6 +19,7 @@ class Contact{
 void addContacts(vector<Contact>& contacts){
     char another;
     do{
+        bool duplicate =false;
         string name, phone, email;
         cout<<"Enter Name: ";
         getline(cin, name);
@@ -27,8 +28,20 @@ void addContacts(vector<Contact>& contacts){
         cout<<"Enter E-mail: ";
         getline(cin, email);
         Contact c1(name, phone, email);
-        contacts.push_back(c1);
-        cout<<endl;
+        for(int i=0; i<contacts.size(); i++){
+            if(phone == contacts[i].phone ){
+                duplicate= true;
+                break;
+            }
+        }
+        if(duplicate){
+            cout<<"\nAlready Existed!"<<endl;
+        }
+        if(!duplicate){
+            contacts.push_back(c1);
+            cout<<"\nContact Added Successfully!"<<endl;
+            cout<<endl;
+        }
         cout<<"Do you want to add another contact? (Y/N): ";
         cin>>another;
         while(another != 'Y' && another != 'y' && another != 'N' && another != 'n'){
